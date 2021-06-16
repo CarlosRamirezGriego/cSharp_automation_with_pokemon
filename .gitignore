@@ -1,0 +1,17 @@
+.vs/*
+AutomationATDD/bin/*
+AutomationATDD/obj/*
+AutomationBDD/bin/*
+AutomationBDD/obj/*
+AutomationClasses/bin/*
+AutomationClasses/obj/*
+GameClasses/bin/*
+GameClasses/obj/*
+packages/*
+PokemonDataBasePage/bin/*
+PokemonDataBasePage/obj/*
+PokemonAPI/bin/*
+PokemonAPI/obj/*
+CodeExecution/bin/*
+CodeExecution/obj/*
+CodeExecution/Program.cs

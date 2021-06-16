@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\AutomationClasses\AutomationClasses.csproj" />
+		<ProjectReference Include="..\GameClasses\GameClasses.csproj" />
+		<ProjectReference Include="..\PokemonAPI\PokemonAPI.csproj" />
+		<ProjectReference Include="..\PokemonDataBasePage\PokemonDataBasePage.csproj" />
+	</ItemGroup>
+
+</Project>

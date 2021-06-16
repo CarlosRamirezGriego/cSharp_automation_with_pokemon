@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameClasses", "GameClasses\GameClasses.csproj", "{23D56970-9DD4-4C26-981E-0F94918AE66F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomationBDD", "AutomationBDD\AutomationBDD.csproj", "{695C37E2-3941-4216-B1F9-D67FFAB7F422}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomationATDD", "AutomationATDD\AutomationATDD.csproj", "{3B5F6604-1E57-401C-A0D5-0F648B498DD4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonAPI", "PokemonAPI\PokemonAPI.csproj", "{82C67F67-ACFC-41DA-B84D-645E7C6A6A6D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonDataBasePage", "PokemonDataBasePage\PokemonDataBasePage.csproj", "{42D01659-F86A-49C8-B9D8-CD23DC380715}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomationClasses", "AutomationClasses\AutomationClasses.csproj", "{42BE78DE-028C-4E0E-982E-542EB68A4112}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExecution", "CodeExecution\CodeExecution.csproj", "{2B5DE99E-4D77-42CA-A55F-620D51206BB2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{23D56970-9DD4-4C26-981E-0F94918AE66F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23D56970-9DD4-4C26-981E-0F94918AE66F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23D56970-9DD4-4C26-981E-0F94918AE66F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23D56970-9DD4-4C26-981E-0F94918AE66F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{695C37E2-3941-4216-B1F9-D67FFAB7F422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{695C37E2-3941-4216-B1F9-D67FFAB7F422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{695C37E2-3941-4216-B1F9-D67FFAB7F422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{695C37E2-3941-4216-B1F9-D67FFAB7F422}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B5F6604-1E57-401C-A0D5-0F648B498DD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B5F6604-1E57-401C-A0D5-0F648B498DD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B5F6604-1E57-401C-A0D5-0F648B498DD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B5F6604-1E57-401C-A0D5-0F648B498DD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82C67F67-ACFC-41DA-B84D-645E7C6A6A6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82C67F67-ACFC-41DA-B84D-645E7C6A6A6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82C67F67-ACFC-41DA-B84D-645E7C6A6A6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82C67F67-ACFC-41DA-B84D-645E7C6A6A6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42D01659-F86A-49C8-B9D8-CD23DC380715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42D01659-F86A-49C8-B9D8-CD23DC380715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42D01659-F86A-49C8-B9D8-CD23DC380715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42D01659-F86A-49C8-B9D8-CD23DC380715}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42BE78DE-028C-4E0E-982E-542EB68A4112}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42BE78DE-028C-4E0E-982E-542EB68A4112}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42BE78DE-028C-4E0E-982E-542EB68A4112}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42BE78DE-028C-4E0E-982E-542EB68A4112}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B5DE99E-4D77-42CA-A55F-620D51206BB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B5DE99E-4D77-42CA-A55F-620D51206BB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B5DE99E-4D77-42CA-A55F-620D51206BB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B5DE99E-4D77-42CA-A55F-620D51206BB2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {83546FE2-D8A6-4A52-9798-0A231B630B5B}
+	EndGlobalSection
+EndGlobal

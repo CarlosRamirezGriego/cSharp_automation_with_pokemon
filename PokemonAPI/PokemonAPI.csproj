@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RestSharp" Version="106.11.7" />
+	 <ProjectReference Include="..\AutomationClasses\AutomationClasses.csproj" />
+	 <ProjectReference Include="..\GameClasses\GameClasses.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
+	 <ProjectReference Include="..\AutomationClasses\AutomationClasses.csproj" />
+	  <ProjectReference Include="..\GameClasses\GameClasses.csproj" />
+	  
+  </ItemGroup>
+
+</Project>
