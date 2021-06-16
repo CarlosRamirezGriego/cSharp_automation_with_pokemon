@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using RestSharp;
+using static AutomationClasses.AutomationOptions;
 
 namespace APIClients
 {
@@ -24,30 +25,28 @@ namespace APIClients
         }
 
 
-        public APIEncapsulator(string url, string uri, string method)
+        public APIEncapsulator(string url, string uri, EndpointMethod method)
         {
             targetURL = url;
             targetURI = uri;
             Uri urlObj = new Uri(targetURL);
             IRestClient client = new RestClient(urlObj);
             clientAPI = client;
-            switch (method.ToLower())
+            if (method == EndpointMethod.GET)
             {
-                case "get":
-                    CreateGETRequest();
-                    break;
-                case "post":
-                    CreatePOSTRequest();
-                    break;
-                case "put":
-                    CreatePUTRequest();
-                    break;
-                case "delete":
-                    CreateDELETERequest();
-                    break;
-                default:
-                    CreateGETRequest();
-                    break;
+                CreateGETRequest();
+            }
+            else if (method == EndpointMethod.POST)
+            {
+                CreatePOSTRequest();
+            }
+            else if (method == EndpointMethod.PUT)
+            {
+                CreatePUTRequest();
+            }
+            else
+            {
+                CreateDELETERequest();
             }
         }
 

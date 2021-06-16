@@ -13,8 +13,8 @@ namespace PageObjects
     public class WebPageInterface
     {
         public IWebDriver testDriver { get; set; }
-        public int explicitWait { get; private set; } = 5;
-        public const int defaultExplicit = 5;
+        public int explicitWait { get; private set; } = 25;
+        public const int defaultExplicit = 25;
         public int milisecondsInterval { get; private set; } = 10;
         public ElementInterface testElement = new ElementInterface();
         public bool isSeleniumGrid { get; private set; } = false;
@@ -39,7 +39,6 @@ namespace PageObjects
         {
             OpenBrowser(testBrowser);
         }
-
 
         public void OpenBrowser(TestBrowser testBrowser)
         {
@@ -379,15 +378,62 @@ namespace PageObjects
                 {
                     throw new InvalidOperationException("The Element with Selector Method: \"" + we.selectorMethod.ToString() + "\" and Selector Path: \"" + we.selector + "\" was never set to visible State");
                 }
-
-
             }
         }
+
+        public void ClickBackSpaceInThisElement(ElementInterface we, int times)
+        {
+            if (we.expectedMatches == ExpectedMatchingElements.NONE || we.expectedMatches == ExpectedMatchingElements.MANY)
+            {
+                throw new InvalidOperationException("The Element with Selector Method: \"" + we.selectorMethod.ToString() + "\" and Selector Path: \""
+                + we.selector + "\" is currently expecting No or Multiple matches, this function only works with elements that expect one match");
+            }
+            else
+            {
+                int cycles = (explicitWait * 1000) / milisecondsInterval / 2;
+                int counter = 0;
+                bool mainCheck = false;
+                while (counter <= cycles)
+                {
+                    ThisElementShouldExistRegardlessVisibility(we);
+                    List<IWebElement> result = we.allMatchingResults;
+                    bool isVisible = ValidateElementsAreVisible(result);
+                    bool isEnabled = ValidateElementsAreEnabled(result);
+                    {
+                        if (isVisible && isEnabled)
+                        {
+                            mainCheck = true;
+                            break;
+                        }
+                    }
+                    counter = counter + 1;
+                }
+                if (mainCheck)
+                {
+                    IWebElement result = we.ReturnTheIWebElementInPosition(1);
+                    if (we.needsScrolling)
+                    {
+                        ScrollToThisElement(we);
+                    }
+                    while (times > 0)
+                    {
+                        result.SendKeys(Keys.Backspace);
+                        times = times - 1;
+                    }
+                }
+                else
+                {
+                    throw new InvalidOperationException("The Element with Selector Method: \"" + we.selectorMethod.ToString() + "\" and Selector Path: \"" + we.selector + "\" was never set to visible State");
+                }
+            }
+        }
+
 
         private void ActualEnterTextAction(IWebElement iwe, string text)
         {
             iwe.SendKeys(text);
         }
+
 
         #endregion
 
@@ -508,6 +554,13 @@ namespace PageObjects
                 IJavaScriptExecutor js = (IJavaScriptExecutor)testDriver;
                 js.ExecuteScript("arguments[0].scrollIntoView(true);", we.ReturnTheIWebElementInPosition(1));
             }
+        }
+
+
+        public void ScrollToThisElement(IWebElement iwe)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)testDriver;
+            js.ExecuteScript("arguments[0].scrollIntoView(true);", iwe);
         }
 
         #endregion
@@ -761,6 +814,50 @@ namespace PageObjects
                 throw new InvalidOperationException("The Method only work with Elements that expect ONE matching result");
             }
         }
+
+
+        public bool IsthisElementPresent(ElementInterface we)
+        {
+            we.ResetElement();
+            if (we.expectedMatches == ExpectedMatchingElements.ONE)
+            {
+                if (we.isSlowElement)
+                {
+                    this.explicitWait = 30;
+                }
+                List<IWebElement> matchingResults = SearchLoop(ExpectedMatchingElements.ONE, we.selectorMethod, we.selector);
+                ThisElementShouldBeVisible(we);
+                int amountElements = matchingResults.Count;
+                if (amountElements == 1)
+                {
+                    if (ValidateElementsAreVisible(matchingResults))
+                    {
+                        we.allMatchingResults = matchingResults;
+                        we.CountMatchingElements();
+                        we.hasBeenSearched = true;
+                        if (HighLightElements)
+                        {
+                            HighLightAllTheElementsThatMatch(we);
+                        }
+                        this.explicitWait = defaultExplicit;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    throw new InvalidOperationException("The Element with selector Method " + we.selectorMethod.ToString() + " and Search String \"" + we.selector + "\" returned " + amountElements.ToString() + " elements. We expected only one");
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException("The Method only work with Elements that expect ONE matching result");
+            }
+        }
+
 
         private ElementInterface ThisElementShouldExistRegardlessVisibility(ElementInterface we)
         {

@@ -33,5 +33,13 @@ namespace AutomationClasses
             MANY
         }
 
+        public enum EndpointMethod
+        {
+            PUT,
+            POST,
+            DELETE,
+            GET
+        }
+
     }
 }
