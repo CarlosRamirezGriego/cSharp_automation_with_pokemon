@@ -816,7 +816,7 @@ namespace PageObjects
         }
 
 
-        public bool IsthisElementPresent(ElementInterface we)
+        public bool IsThisElementPresent(ElementInterface we)
         {
             we.ResetElement();
             if (we.expectedMatches == ExpectedMatchingElements.ONE)
