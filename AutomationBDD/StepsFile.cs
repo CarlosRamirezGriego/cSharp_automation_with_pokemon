@@ -1,6 +1,9 @@
 ﻿using AutomationClasses;
 using NUnit.Framework;
 using PageObjects;
+using PokemonAPI;
+using PokemonAPIFeature;
+using RestSharp;
 using StatsManagement;
 using System;
 using System.Collections.Generic;
@@ -17,7 +20,10 @@ namespace AutomationBDD
         public bool _isBrowserOpen = false;
         public bool _isWebTest = false;
         public WebPageInterface _wp;
-
+        public PokemonEndpoint _pe;
+        public PokemonEndpointFeature _pef;
+        public string _targetPokemon;
+        public Dictionary<string, IRestResponse> responses = new Dictionary<string, IRestResponse>();
 
         [AfterScenario]
         public void AfterScenario()
@@ -27,6 +33,46 @@ namespace AutomationBDD
                 _wp.CloseBrowser();
             }
         }
+
+        #region API Tests Steps
+
+        #region Pokemon GET Endpoint
+        [Given(@"that the test user selects the '(.*)' Pokemon to retrieve information")]
+        public void TheTestUserSelectsThePokemonToRetrieveInformation(string p0)
+        {
+            _pef = new PokemonEndpointFeature();
+            _pe = new PokemonEndpoint(_pef.APIURL);
+            _targetPokemon = p0;
+        }
+
+
+        [When(@"the test user queries the API with the test Pokemon name")]
+        public void TheTestUserQueriesTheAPIWithTheTestPokemonName()
+        {
+            IRestResponse response = _pe.RetrievePokemonInformation(_targetPokemon);
+            responses.Add("PokemonEndpoint", response);
+        }
+
+
+        [Then(@"the user should '(.*)' receive information")]
+        public void ThenTheUserShouldReceiveInformation(bool p0)
+        {
+            IRestResponse response = responses["PokemonEndpoint"];
+            int code = (int)response.StatusCode;
+            if (p0)
+            {
+                Assert.AreEqual(200, code);
+            }
+            else
+            {
+                Assert.AreEqual(404, code);
+            }
+        }
+
+
+
+        #endregion
+        #endregion
 
         #region UI Tests Steps
 
@@ -79,7 +125,6 @@ namespace AutomationBDD
         #endregion
 
         #endregion
-
 
         #region Code Tests Steps
 
