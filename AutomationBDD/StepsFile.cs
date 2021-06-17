@@ -21,7 +21,6 @@ namespace AutomationBDD
         public bool _isWebTest = false;
         public WebPageInterface _wp;
         public PokemonEndpoint _pe;
-        public PokemonEndpointFeature _pef;
         public string _targetPokemon;
         public Dictionary<string, IRestResponse> responses = new Dictionary<string, IRestResponse>();
 
@@ -40,8 +39,7 @@ namespace AutomationBDD
         [Given(@"that the test user selects the '(.*)' Pokemon to retrieve information")]
         public void TheTestUserSelectsThePokemonToRetrieveInformation(string p0)
         {
-            _pef = new PokemonEndpointFeature();
-            _pe = new PokemonEndpoint(_pef.APIURL);
+            _pe = new PokemonEndpoint(EnvironmentData.pokemonAPIURL);
             _targetPokemon = p0;
         }
 

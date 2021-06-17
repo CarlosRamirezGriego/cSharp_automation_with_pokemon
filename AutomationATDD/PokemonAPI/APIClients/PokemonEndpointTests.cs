@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using AutomationClasses;
+using NUnit.Framework;
 using PokemonAPI;
 using PokemonAPIFeature;
 using RestSharp;
@@ -13,8 +14,7 @@ namespace AutomationATDD
         [TestCase("DoesntExist", 404)]
         public void GetPokemonDataByName(string name, int expectedCode)
         {
-            PokemonEndpointFeature pef = new PokemonEndpointFeature();
-            PokemonEndpoint pe = new PokemonEndpoint(pef.APIURL);
+            PokemonEndpoint pe = new PokemonEndpoint(EnvironmentData.pokemonAPIURL);
             IRestResponse response = pe.RetrievePokemonInformation(name);
             int code = (int)response.StatusCode;
             Assert.AreEqual(expectedCode, code);
@@ -27,8 +27,7 @@ namespace AutomationATDD
         [TestCase(1400, 404)]
         public void GetPokemonDataByNumber(int number, int expectedCode)
         {
-            PokemonEndpointFeature pef = new PokemonEndpointFeature();
-            PokemonEndpoint pe = new PokemonEndpoint(pef.APIURL);
+            PokemonEndpoint pe = new PokemonEndpoint(EnvironmentData.pokemonAPIURL);
             IRestResponse response = pe.RetrievePokemonInformation(number);
             int code = (int)response.StatusCode;
             Assert.AreEqual(expectedCode, code);

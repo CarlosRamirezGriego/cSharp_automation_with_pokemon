@@ -1,4 +1,5 @@
-﻿using GameInterfaces;
+﻿using AutomationClasses;
+using GameInterfaces;
 using Newtonsoft.Json;
 using PokemonAPI;
 using RestSharp;
@@ -12,7 +13,7 @@ namespace PokemonAPIFeature
     public class PokemonEndpointFeature
     {
 
-        public string APIURL { get; private set; } = "https://pokeapi.co/";
+        public string APIURL { get; private set; } = EnvironmentData.pokemonAPIURL;
 
         public IRestResponse GetDataFromPokemonNumber(int pokemonNumber)
         {
