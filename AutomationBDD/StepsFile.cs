@@ -1,8 +1,11 @@
-﻿using NUnit.Framework;
+﻿using AutomationClasses;
+using NUnit.Framework;
+using PageObjects;
 using StatsManagement;
 using System;
 using System.Collections.Generic;
 using TechTalk.SpecFlow;
+using UIModules;
 
 namespace AutomationBDD
 {
@@ -11,6 +14,74 @@ namespace AutomationBDD
     {
 
         public Dictionary<string, EVManagement> evObjects = new Dictionary<string, EVManagement>();
+        public bool _isBrowserOpen = false;
+        public bool _isWebTest = false;
+        public WebPageInterface _wp;
+
+
+        [AfterScenario]
+        public void AfterScenario()
+        {
+            if (_isWebTest && _isBrowserOpen)
+            {
+                _wp.CloseBrowser();
+            }
+        }
+
+        #region UI Tests Steps
+
+        #region Pokedex DB Home region
+        [Given(@"that the test user has loaded the PokemonDB Page")]
+        public void TheTestUserHasLoadedThePokemonDBPage()
+        {
+            if (!_isBrowserOpen)
+            {
+                _wp = new WebPageInterface(AutomationOptions.TestBrowser.CHROME);
+                _wp.MaximizeWindow();
+                _isBrowserOpen = true;
+                _isWebTest = true;
+            }
+            PokemonDBHomeModule dbHome = new PokemonDBHomeModule(_wp);
+            dbHome.GoToThisPage();
+            dbHome.CloseModalIfPresent();
+        }
+
+
+        [Given(@"that the test user has navigated to the National Pokedex page using the Quicklink")]
+        public void TheTestUserHasNavigatedToTheNationalPokedexPageUsingTheQuicklink()
+        {
+            PokemonDBHomeModule dbHome = new PokemonDBHomeModule(_wp);
+            dbHome.UserClicksNationalPokedexQuickLink();
+        }
+
+        #endregion
+
+        #region Pokedex List Page region
+
+        [When(@"the test user clicks over the '(.*)' from the list")]
+        public void WhenTheTestUserClicksOverTheFromTheList(string p0)
+        {
+            NationalPokedexPageModule dexPageModule = new NationalPokedexPageModule(_wp);
+            dexPageModule.UserClicksPokemonFromTheList(p0);
+        }
+        #endregion
+
+
+        #region Pokemon Detail Page region
+
+        [Then(@"the test user should be redirected to the '(.*)' Pokemon detail page")]
+        public void ThenTheTestUserShouldBeRedirectedToThePokemonDetailPage(string p0)
+        {
+            PokemonDetailPageModule detailPage = new PokemonDetailPageModule(_wp);
+            string nameInPage = detailPage.FindPokemonNameInPage();
+            Assert.AreEqual(p0, nameInPage);
+        }
+        #endregion
+
+        #endregion
+
+
+        #region Code Tests Steps
 
         [Given(@"that the user has generated an EV Management Object")]
         public void GivenThatTheUserHasGeneratedAnEVManagementObject()
@@ -41,5 +112,6 @@ namespace AutomationBDD
             Assert.AreEqual(expectedEV, actualEV);
         }
 
+        #endregion
     }
 }
