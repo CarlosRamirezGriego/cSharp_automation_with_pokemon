@@ -30,13 +30,10 @@ namespace UIModules
         public void CloseModalIfPresent()
         {
             PokemonDBHome homePageObject = new PokemonDBHome(_wp);
-            try
+            if (_wp.IsThisElementPresent(homePageObject.ModalOkButton))
             {
                 homePageObject.ClickOKModalButton();
                 homePageObject.WaitForTheModalToNotBeDisplayedAnymore();
-            }
-            catch { 
-
             }
         }
     }
