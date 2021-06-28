@@ -13,8 +13,8 @@ namespace PageObjects
     public class WebPageInterface
     {
         public IWebDriver testDriver { get; set; }
-        public int explicitWait { get; private set; } = 25;
-        public const int defaultExplicit = 25;
+        public int explicitWait { get; private set; } = 5;
+        public const int defaultExplicit = 5;
         public int milisecondsInterval { get; private set; } = 10;
         public ElementInterface testElement = new ElementInterface();
         public bool isSeleniumGrid { get; private set; } = false;
@@ -823,6 +823,7 @@ namespace PageObjects
             {
                 if (we.isSlowElement)
                 {
+                    Thread.Sleep(500);
                     this.explicitWait = 30;
                 }
                 List<IWebElement> matchingResults = SearchLoop(ExpectedMatchingElements.ONE, we.selectorMethod, we.selector);
@@ -866,6 +867,7 @@ namespace PageObjects
             {
                 if (we.isSlowElement)
                 {
+                    Thread.Sleep(500);
                     this.explicitWait = 30;
                 }
                 List<IWebElement> matchingResults = SearchLoop(ExpectedMatchingElements.ONE, we.selectorMethod, we.selector);
@@ -896,6 +898,7 @@ namespace PageObjects
             {
                 if (we.isSlowElement)
                 {
+                    Thread.Sleep(500);
                     this.explicitWait = 30;
                 }
                 List<IWebElement> matchingResults = SearchLoop(ExpectedMatchingElements.NONE, we.selectorMethod, we.selector);
@@ -1087,7 +1090,6 @@ namespace PageObjects
         #endregion
 
         #region SearchLoops
-
         private List<IWebElement> SearchLoop(ExpectedMatchingElements expNumber, SearchMethod method, string sel)
         {
             List<IWebElement> matchingResults = new List<IWebElement>();
@@ -1095,6 +1097,7 @@ namespace PageObjects
             int counter = 0;
             while (counter <= cycles)
             {
+                matchingResults.Clear();
                 matchingResults = PerformSearchInPage(method, sel);
                 if (matchingResults.Count == 0 && expNumber == ExpectedMatchingElements.NONE)
                 {
@@ -1110,7 +1113,6 @@ namespace PageObjects
                 }
                 else
                 {
-                    matchingResults.Clear();
                     Thread.Sleep(milisecondsInterval);
                     counter = counter + 1;
                 }
