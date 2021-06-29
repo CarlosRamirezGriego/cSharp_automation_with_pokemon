@@ -21,14 +21,11 @@ namespace CodeExecution
             wpi.MaximizeWindow();
 
             ElementInterface SearchBar = new ElementInterface("q", SearchMethod.NAME);
-            SearchBar.ExpectNoMatches();
 
             wpi.SearchForTheseSelectorsData(SearchBar);
             wpi.EnterTextInThisElement(SearchBar, "ThisIsWhatiWant");
-            wpi.ThisElementShouldNotBeVisible(SearchBar);
-            wpi.ClickThisElement(SearchBar);
-
-            Thread.Sleep(5000);
+            wpi.PressEnterInThisElement(SearchBar);
+            Thread.Sleep(1000);
             wpi.CloseBrowser();
 
 

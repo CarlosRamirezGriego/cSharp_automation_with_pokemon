@@ -381,7 +381,51 @@ namespace PageObjects
             }
         }
 
-        public void ClickBackSpaceInThisElement(ElementInterface we, int times)
+        public void PressEnterInThisElement(ElementInterface we)
+        {
+            if (we.expectedMatches == ExpectedMatchingElements.NONE || we.expectedMatches == ExpectedMatchingElements.MANY)
+            {
+                throw new InvalidOperationException("The Element with Selector Method: \"" + we.selectorMethod.ToString() + "\" and Selector Path: \""
+                + we.selector + "\" is currently expecting No or Multiple matches, this function only works with elements that expect one match");
+            }
+            else
+            {
+                int cycles = (explicitWait * 1000) / milisecondsInterval / 2;
+                int counter = 0;
+                bool mainCheck = false;
+                while (counter <= cycles)
+                {
+                    ThisElementShouldExistRegardlessVisibility(we);
+                    List<IWebElement> result = we.allMatchingResults;
+                    bool isVisible = ValidateElementsAreVisible(result);
+                    bool isEnabled = ValidateElementsAreEnabled(result);
+                    {
+                        if (isVisible && isEnabled)
+                        {
+                            mainCheck = true;
+                            break;
+                        }
+                    }
+                    counter = counter + 1;
+                }
+                if (mainCheck)
+                {
+                    IWebElement result = we.ReturnTheIWebElementInPosition(1);
+                    if (we.needsScrolling)
+                    {
+                        ScrollToThisElement(we);
+                    }
+                    result.SendKeys(Keys.Enter);
+                }
+                else
+                {
+                    throw new InvalidOperationException("The Element with Selector Method: \"" + we.selectorMethod.ToString() + "\" and Selector Path: \"" + we.selector + "\" was never set to visible State");
+                }
+            }
+        }
+
+
+        public void PressBackSpaceInThisElement(ElementInterface we, int times)
         {
             if (we.expectedMatches == ExpectedMatchingElements.NONE || we.expectedMatches == ExpectedMatchingElements.MANY)
             {
