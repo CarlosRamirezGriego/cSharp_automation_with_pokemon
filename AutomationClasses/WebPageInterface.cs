@@ -3,6 +3,8 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Support.UI;
+using PageObjects;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -13,8 +15,8 @@ namespace PageObjects
     public class WebPageInterface
     {
         public IWebDriver testDriver { get; set; }
-        public int explicitWait { get; private set; } = 5;
-        public const int defaultExplicit = 5;
+        public int explicitWait { get; private set; } = 10;
+        public const int defaultExplicit = 10;
         public int milisecondsInterval { get; private set; } = 10;
         public ElementInterface testElement = new ElementInterface();
         public bool isSeleniumGrid { get; private set; } = false;
@@ -176,6 +178,49 @@ namespace PageObjects
             else
             {
                 return ThisElementShouldHaveNoMatch(we);
+            }
+        }
+
+        public bool IsThisElementPresent(ElementInterface we)
+        {
+            we.ResetElement();
+            if (we.expectedMatches == ExpectedMatchingElements.ONE)
+            {
+                if (we.isSlowElement)
+                {
+                    Thread.Sleep(500);
+                    this.explicitWait = 30;
+                }
+                List<IWebElement> matchingResults = SearchLoop(ExpectedMatchingElements.ONE, we.selectorMethod, we.selector);
+                ThisElementShouldBeVisible(we);
+                int amountElements = matchingResults.Count;
+                if (amountElements == 1)
+                {
+                    if (ValidateElementsAreVisible(matchingResults))
+                    {
+                        we.allMatchingResults = matchingResults;
+                        we.CountMatchingElements();
+                        we.hasBeenSearched = true;
+                        if (HighLightElements)
+                        {
+                            HighLightAllTheElementsThatMatch(we);
+                        }
+                        this.explicitWait = defaultExplicit;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    throw new InvalidOperationException("The Element with selector Method " + we.selectorMethod.ToString() + " and Search String \"" + we.selector + "\" returned " + amountElements.ToString() + " elements. We expected only one");
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException("The Method only work with Elements that expect ONE matching result");
             }
         }
 
@@ -381,50 +426,6 @@ namespace PageObjects
             }
         }
 
-        public void PressEnterInThisElement(ElementInterface we)
-        {
-            if (we.expectedMatches == ExpectedMatchingElements.NONE || we.expectedMatches == ExpectedMatchingElements.MANY)
-            {
-                throw new InvalidOperationException("The Element with Selector Method: \"" + we.selectorMethod.ToString() + "\" and Selector Path: \""
-                + we.selector + "\" is currently expecting No or Multiple matches, this function only works with elements that expect one match");
-            }
-            else
-            {
-                int cycles = (explicitWait * 1000) / milisecondsInterval / 2;
-                int counter = 0;
-                bool mainCheck = false;
-                while (counter <= cycles)
-                {
-                    ThisElementShouldExistRegardlessVisibility(we);
-                    List<IWebElement> result = we.allMatchingResults;
-                    bool isVisible = ValidateElementsAreVisible(result);
-                    bool isEnabled = ValidateElementsAreEnabled(result);
-                    {
-                        if (isVisible && isEnabled)
-                        {
-                            mainCheck = true;
-                            break;
-                        }
-                    }
-                    counter = counter + 1;
-                }
-                if (mainCheck)
-                {
-                    IWebElement result = we.ReturnTheIWebElementInPosition(1);
-                    if (we.needsScrolling)
-                    {
-                        ScrollToThisElement(we);
-                    }
-                    result.SendKeys(Keys.Enter);
-                }
-                else
-                {
-                    throw new InvalidOperationException("The Element with Selector Method: \"" + we.selectorMethod.ToString() + "\" and Selector Path: \"" + we.selector + "\" was never set to visible State");
-                }
-            }
-        }
-
-
         public void PressBackSpaceInThisElement(ElementInterface we, int times)
         {
             if (we.expectedMatches == ExpectedMatchingElements.NONE || we.expectedMatches == ExpectedMatchingElements.MANY)
@@ -464,6 +465,49 @@ namespace PageObjects
                         result.SendKeys(Keys.Backspace);
                         times = times - 1;
                     }
+                }
+                else
+                {
+                    throw new InvalidOperationException("The Element with Selector Method: \"" + we.selectorMethod.ToString() + "\" and Selector Path: \"" + we.selector + "\" was never set to visible State");
+                }
+            }
+        }
+
+        public void PressEnterInThisElement(ElementInterface we)
+        {
+            if (we.expectedMatches == ExpectedMatchingElements.NONE || we.expectedMatches == ExpectedMatchingElements.MANY)
+            {
+                throw new InvalidOperationException("The Element with Selector Method: \"" + we.selectorMethod.ToString() + "\" and Selector Path: \""
+                + we.selector + "\" is currently expecting No or Multiple matches, this function only works with elements that expect one match");
+            }
+            else
+            {
+                int cycles = (explicitWait * 1000) / milisecondsInterval / 2;
+                int counter = 0;
+                bool mainCheck = false;
+                while (counter <= cycles)
+                {
+                    ThisElementShouldExistRegardlessVisibility(we);
+                    List<IWebElement> result = we.allMatchingResults;
+                    bool isVisible = ValidateElementsAreVisible(result);
+                    bool isEnabled = ValidateElementsAreEnabled(result);
+                    {
+                        if (isVisible && isEnabled)
+                        {
+                            mainCheck = true;
+                            break;
+                        }
+                    }
+                    counter = counter + 1;
+                }
+                if (mainCheck)
+                {
+                    IWebElement result = we.ReturnTheIWebElementInPosition(1);
+                    if (we.needsScrolling)
+                    {
+                        ScrollToThisElement(we);
+                    }
+                    result.SendKeys(Keys.Enter);
                 }
                 else
                 {
@@ -859,51 +903,6 @@ namespace PageObjects
             }
         }
 
-
-        public bool IsThisElementPresent(ElementInterface we)
-        {
-            we.ResetElement();
-            if (we.expectedMatches == ExpectedMatchingElements.ONE)
-            {
-                if (we.isSlowElement)
-                {
-                    Thread.Sleep(500);
-                    this.explicitWait = 30;
-                }
-                List<IWebElement> matchingResults = SearchLoop(ExpectedMatchingElements.ONE, we.selectorMethod, we.selector);
-                ThisElementShouldBeVisible(we);
-                int amountElements = matchingResults.Count;
-                if (amountElements == 1)
-                {
-                    if (ValidateElementsAreVisible(matchingResults))
-                    {
-                        we.allMatchingResults = matchingResults;
-                        we.CountMatchingElements();
-                        we.hasBeenSearched = true;
-                        if (HighLightElements)
-                        {
-                            HighLightAllTheElementsThatMatch(we);
-                        }
-                        this.explicitWait = defaultExplicit;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    throw new InvalidOperationException("The Element with selector Method " + we.selectorMethod.ToString() + " and Search String \"" + we.selector + "\" returned " + amountElements.ToString() + " elements. We expected only one");
-                }
-            }
-            else
-            {
-                throw new InvalidOperationException("The Method only work with Elements that expect ONE matching result");
-            }
-        }
-
-
         private ElementInterface ThisElementShouldExistRegardlessVisibility(ElementInterface we)
         {
             we.ResetElement();
@@ -911,7 +910,6 @@ namespace PageObjects
             {
                 if (we.isSlowElement)
                 {
-                    Thread.Sleep(500);
                     this.explicitWait = 30;
                 }
                 List<IWebElement> matchingResults = SearchLoop(ExpectedMatchingElements.ONE, we.selectorMethod, we.selector);
@@ -942,7 +940,6 @@ namespace PageObjects
             {
                 if (we.isSlowElement)
                 {
-                    Thread.Sleep(500);
                     this.explicitWait = 30;
                 }
                 List<IWebElement> matchingResults = SearchLoop(ExpectedMatchingElements.NONE, we.selectorMethod, we.selector);
@@ -978,7 +975,9 @@ namespace PageObjects
                 if (amountElements >= 1)
                 {
                     we.allMatchingResults = matchingResults;
-                    we.CountMatchingElements();
+                    we.allMatchingResults = matchingResults;
+                    we.amountElements = amountElements;
+                    we.ExpectMultipleMatches();
                     we.hasBeenSearched = true;
                     if (HighLightElements)
                     {
@@ -1108,10 +1107,11 @@ namespace PageObjects
                 }
                 List<IWebElement> matchingResults = SearchLoop(ExpectedMatchingElements.MANY, we.selectorMethod, we.selector, iwe);
                 int amountElements = matchingResults.Count;
-                if (amountElements > 1)
+                if (amountElements >= 1)
                 {
                     we.allMatchingResults = matchingResults;
-                    we.CountMatchingElements();
+                    we.amountElements = amountElements;
+                    we.ExpectMultipleMatches();
                     we.hasBeenSearched = true;
                     if (HighLightElements)
                     {
@@ -1134,6 +1134,7 @@ namespace PageObjects
         #endregion
 
         #region SearchLoops
+
         private List<IWebElement> SearchLoop(ExpectedMatchingElements expNumber, SearchMethod method, string sel)
         {
             List<IWebElement> matchingResults = new List<IWebElement>();
@@ -1147,7 +1148,7 @@ namespace PageObjects
                 {
                     break;
                 }
-                else if (matchingResults.Count > 1 && expNumber == ExpectedMatchingElements.MANY)
+                else if (matchingResults.Count >= 1 && expNumber == ExpectedMatchingElements.MANY)
                 {
                     break;
                 }
@@ -1173,12 +1174,13 @@ namespace PageObjects
             int counter = 0;
             while (counter <= cycles)
             {
+                matchingResults.Clear();
                 matchingResults = PerformSearchInElement(method, sel, iwe);
                 if (matchingResults.Count == 0 && expNumber == ExpectedMatchingElements.NONE)
                 {
                     break;
                 }
-                else if (matchingResults.Count > 1 && expNumber == ExpectedMatchingElements.MANY)
+                else if (matchingResults.Count >= 1 && expNumber == ExpectedMatchingElements.MANY)
                 {
                     break;
                 }
@@ -1188,7 +1190,6 @@ namespace PageObjects
                 }
                 else
                 {
-                    matchingResults.Clear();
                     Thread.Sleep(milisecondsInterval);
                     counter = counter + 1;
                 }
@@ -1411,6 +1412,7 @@ namespace PageObjects
             return elements;
         }
         #endregion
+
 
     }
 }

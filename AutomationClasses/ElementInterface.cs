@@ -12,7 +12,7 @@ namespace PageObjects
         public string selector;
         public SearchMethod selectorMethod;
         public List<IWebElement> allMatchingResults = new List<IWebElement>();
-        public int amountElements { get; private set; } = 0;
+        public int amountElements  = 0;
         public ExpectedMatchingElements expectedMatches  { get; private set; }
         public ExpectedMatchingElements actualMatches { get; private set; }
         public bool doValidation = true;
