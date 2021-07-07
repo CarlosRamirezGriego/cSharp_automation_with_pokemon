@@ -26,7 +26,8 @@ But, in order to build this Project from scratch, you will need to download thes
 - Specflow.Tool.MsBuild.Generation
 - Newtonsoft.Json
 
-
+Download Chromedriver, Geckodriver and add them to an specific directory, I use: C:/webdrivers/
+Edit your PATH environment variable and add the Path to the directory where you added your drivers.
 
 ### Test Execution ###
 
