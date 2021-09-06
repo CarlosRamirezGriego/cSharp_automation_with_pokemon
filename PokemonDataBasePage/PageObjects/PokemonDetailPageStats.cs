@@ -8,22 +8,22 @@ namespace PageObjects
 {
     public class PokemonDetailPageStats
     {
-        public ElementInterface TabBasicContainer = new ElementInterface("div[class='tabs-panel active'][id^='tab-basic-']", AutomationOptions.SearchMethod.CSS);
-        public ElementInterface TabBasicContainer_StatsContainer = new ElementInterface("div:nth-child(2)>div:nth-child(1)", AutomationOptions.SearchMethod.CSS);
-        public ElementInterface TabBasicContainer_StatsContainer_BaseStatHP = new ElementInterface("table.vitals-table tbody>tr:nth-child(1) td:nth-of-type(1)", AutomationOptions.SearchMethod.CSS);
-        public ElementInterface TabBasicContainer_StatsContainer_BaseStatAttack = new ElementInterface("table.vitals-table tbody>tr:nth-child(2) td:nth-of-type(1)", AutomationOptions.SearchMethod.CSS);
-        public ElementInterface TabBasicContainer_StatsContainer_BaseStatDefense = new ElementInterface("table.vitals-table tbody>tr:nth-child(3) td:nth-of-type(1)", AutomationOptions.SearchMethod.CSS);
-        public ElementInterface TabBasicContainer_StatsContainer_BaseStatSpAttack = new ElementInterface("table.vitals-table tbody>tr:nth-child(4) td:nth-of-type(1)", AutomationOptions.SearchMethod.CSS);
-        public ElementInterface TabBasicContainer_StatsContainer_BaseStatSpDefense = new ElementInterface("table.vitals-table tbody>tr:nth-child(5) td:nth-of-type(1)", AutomationOptions.SearchMethod.CSS);
-        public ElementInterface TabBasicContainer_StatsContainer_BaseStatSpeed = new ElementInterface("table.vitals-table tbody>tr:nth-child(6) td:nth-of-type(1)", AutomationOptions.SearchMethod.CSS);
-        public WebPageInterface _webPage;
+        public ElementAbstract TabBasicContainer = new ElementAbstract("div[class='tabs-panel active'][id^='tab-basic-']", AutomationOptions.SearchMethod.CSS);
+        public ElementAbstract TabBasicContainer_StatsContainer = new ElementAbstract("div:nth-child(2)>div:nth-child(1)", AutomationOptions.SearchMethod.CSS);
+        public ElementAbstract TabBasicContainer_StatsContainer_BaseStatHP = new ElementAbstract("table.vitals-table tbody>tr:nth-child(1) td:nth-of-type(1)", AutomationOptions.SearchMethod.CSS);
+        public ElementAbstract TabBasicContainer_StatsContainer_BaseStatAttack = new ElementAbstract("table.vitals-table tbody>tr:nth-child(2) td:nth-of-type(1)", AutomationOptions.SearchMethod.CSS);
+        public ElementAbstract TabBasicContainer_StatsContainer_BaseStatDefense = new ElementAbstract("table.vitals-table tbody>tr:nth-child(3) td:nth-of-type(1)", AutomationOptions.SearchMethod.CSS);
+        public ElementAbstract TabBasicContainer_StatsContainer_BaseStatSpAttack = new ElementAbstract("table.vitals-table tbody>tr:nth-child(4) td:nth-of-type(1)", AutomationOptions.SearchMethod.CSS);
+        public ElementAbstract TabBasicContainer_StatsContainer_BaseStatSpDefense = new ElementAbstract("table.vitals-table tbody>tr:nth-child(5) td:nth-of-type(1)", AutomationOptions.SearchMethod.CSS);
+        public ElementAbstract TabBasicContainer_StatsContainer_BaseStatSpeed = new ElementAbstract("table.vitals-table tbody>tr:nth-child(6) td:nth-of-type(1)", AutomationOptions.SearchMethod.CSS);
+        public WebPageAbtract _webPage;
 
-        public PokemonDetailPageStats(WebPageInterface webPage)
+        public PokemonDetailPageStats(WebPageAbtract webPage)
         {
                 _webPage = webPage;
         }
 
-        public ElementInterface FindHPBaseStatusData()
+        public ElementAbstract FindHPBaseStatusData()
         {
             TabBasicContainer = _webPage.SearchForTheseSelectorsData(TabBasicContainer);
             TabBasicContainer_StatsContainer = _webPage.SearchForTheseSelectorsData(TabBasicContainer, TabBasicContainer_StatsContainer);
@@ -31,7 +31,7 @@ namespace PageObjects
             return TabBasicContainer_StatsContainer_BaseStatHP;
         }
 
-        public ElementInterface FindAttackBaseStatusData()
+        public ElementAbstract FindAttackBaseStatusData()
         {
             TabBasicContainer = _webPage.SearchForTheseSelectorsData(TabBasicContainer);
             TabBasicContainer_StatsContainer = _webPage.SearchForTheseSelectorsData(TabBasicContainer, TabBasicContainer_StatsContainer);
@@ -39,7 +39,7 @@ namespace PageObjects
             return TabBasicContainer_StatsContainer_BaseStatAttack;
         }
 
-        public ElementInterface FindDefenseBaseStatusData()
+        public ElementAbstract FindDefenseBaseStatusData()
         {
             TabBasicContainer = _webPage.SearchForTheseSelectorsData(TabBasicContainer);
             TabBasicContainer_StatsContainer = _webPage.SearchForTheseSelectorsData(TabBasicContainer, TabBasicContainer_StatsContainer);
@@ -47,7 +47,7 @@ namespace PageObjects
             return TabBasicContainer_StatsContainer_BaseStatDefense;
         }
 
-        public ElementInterface FindSpAttackBaseStatusData()
+        public ElementAbstract FindSpAttackBaseStatusData()
         {
             TabBasicContainer = _webPage.SearchForTheseSelectorsData(TabBasicContainer);
             TabBasicContainer_StatsContainer = _webPage.SearchForTheseSelectorsData(TabBasicContainer, TabBasicContainer_StatsContainer);
@@ -55,7 +55,7 @@ namespace PageObjects
             return TabBasicContainer_StatsContainer_BaseStatSpAttack;
         }
 
-        public ElementInterface FindSpDefenseBaseStatusData()
+        public ElementAbstract FindSpDefenseBaseStatusData()
         {
             TabBasicContainer = _webPage.SearchForTheseSelectorsData(TabBasicContainer);
             TabBasicContainer_StatsContainer = _webPage.SearchForTheseSelectorsData(TabBasicContainer, TabBasicContainer_StatsContainer);
@@ -63,7 +63,7 @@ namespace PageObjects
             return TabBasicContainer_StatsContainer_BaseStatSpDefense;
         }
 
-        public ElementInterface FindSpeedBaseStatusData()
+        public ElementAbstract FindSpeedBaseStatusData()
         {
             TabBasicContainer = _webPage.SearchForTheseSelectorsData(TabBasicContainer);
             TabBasicContainer_StatsContainer = _webPage.SearchForTheseSelectorsData(TabBasicContainer, TabBasicContainer_StatsContainer);

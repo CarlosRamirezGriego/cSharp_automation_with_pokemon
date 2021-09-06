@@ -8,10 +8,10 @@ namespace UIModules
 {
     public class NationalPokedexPageModule
     {
-        public WebPageInterface _wp;
+        public WebPageAbtract _wp;
 
 
-        public NationalPokedexPageModule(WebPageInterface wp)
+        public NationalPokedexPageModule(WebPageAbtract wp)
         {
             _wp = wp;
         }

@@ -7,7 +7,7 @@ using static AutomationClasses.AutomationOptions;
 
 namespace PageObjects
 {
-    public class ElementInterface
+    public class ElementAbstract
     {
         public string selector;
         public SearchMethod selectorMethod;
@@ -20,7 +20,7 @@ namespace PageObjects
         public bool needsScrolling = false;
         public bool isSlowElement = false;
 
-        public ElementInterface()
+        public ElementAbstract()
         {
             expectedMatches = AutomationOptions.ExpectedMatchingElements.NONE;
             ExpectNoMatches();
@@ -28,7 +28,7 @@ namespace PageObjects
 
 
         //The Default Constructor Sets 
-        public ElementInterface(string sel, SearchMethod method)
+        public ElementAbstract(string sel, SearchMethod method)
         {
             selector = sel;
             selectorMethod = method;
@@ -39,7 +39,7 @@ namespace PageObjects
         //This contructor takes any value lower than 1 as if we were not expecting any Element
         //Any value higher than 1 means it expects more than 1 Elements
         //A Value of one means we expect exactly 1 Element
-        public ElementInterface(string sel, SearchMethod method, ExpectedMatchingElements expected)
+        public ElementAbstract(string sel, SearchMethod method, ExpectedMatchingElements expected)
         {
             selector = sel;
             selectorMethod = method;

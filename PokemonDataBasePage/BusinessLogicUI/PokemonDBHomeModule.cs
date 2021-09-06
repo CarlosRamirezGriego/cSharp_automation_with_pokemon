@@ -6,10 +6,10 @@ namespace UIModules
     public class PokemonDBHomeModule
     {
 
-        public WebPageInterface _wp;
+        public WebPageAbtract _wp;
 
 
-        public PokemonDBHomeModule(WebPageInterface wp)
+        public PokemonDBHomeModule(WebPageAbtract wp)
         {
             _wp = wp;
         }
