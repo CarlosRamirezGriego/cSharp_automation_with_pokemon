@@ -17,9 +17,9 @@ namespace PageObjects
         public ElementAbstract Generation8Link = new ElementAbstract("a[href='#gen-8']", AutomationOptions.SearchMethod.CSS);
         public ElementAbstract PokemonTile = new ElementAbstract("a.ent-name", AutomationOptions.SearchMethod.CSS);
         public ElementAbstract SpecificPokemonTile = new ElementAbstract();
-        public WebPageAbtract _webPage;
+        public WebPageAbstract _webPage;
 
-        public NationalPokedexPage(WebPageAbtract webPage)
+        public NationalPokedexPage(WebPageAbstract webPage)
         {
             _webPage = webPage;
         }

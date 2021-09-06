@@ -13,9 +13,9 @@ namespace PageObjects
         public ElementAbstract TabBasicContainer_DataContainer = new ElementAbstract("div:nth-child(1)>div[class$='text-center']+div:nth-child(2)>h2+table.vitals-table", AutomationOptions.SearchMethod.CSS);
         public ElementAbstract TabBasicContainer_DataContainer_NationalDexNumber = new ElementAbstract("tbody>tr:nth-child(1) >td", AutomationOptions.SearchMethod.CSS);
         public ElementAbstract TabBasicContainer_DataContainer_PokemonTypes = new ElementAbstract("tbody>tr:nth-child(2)>td>a", AutomationOptions.SearchMethod.CSS);
-        public WebPageAbtract _webPage;
+        public WebPageAbstract _webPage;
 
-        public PokemonDetailPagePokedex(WebPageAbtract webPage)
+        public PokemonDetailPagePokedex(WebPageAbstract webPage)
         {
                 _webPage = webPage;
         }

@@ -9,9 +9,9 @@ namespace UIModules
     public class PokemonDetailPageModule
     {
 
-        public WebPageAbtract _wp;
+        public WebPageAbstract _wp;
 
-        public PokemonDetailPageModule(WebPageAbtract wp)
+        public PokemonDetailPageModule(WebPageAbstract wp)
         {
             _wp = wp;
         }

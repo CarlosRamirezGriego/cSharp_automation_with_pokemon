@@ -12,7 +12,7 @@ using static AutomationClasses.AutomationOptions;
 
 namespace PageObjects
 {
-    public class WebPageAbtract
+    public class WebPageAbstract
     {
         public IWebDriver testDriver { get; set; }
         public int explicitWait { get; private set; } = 10;
@@ -23,21 +23,21 @@ namespace PageObjects
         public bool HighLightElements = false;
         public TestBrowser testBrowser;
 
-        public WebPageAbtract()
+        public WebPageAbstract()
         {
         }
 
-        public WebPageAbtract(TestBrowser testBrowser, string url)
+        public WebPageAbstract(TestBrowser testBrowser, string url)
         {
             OpenBrowser(testBrowser, url);
         }
 
-        public WebPageAbtract(IWebDriver driver)
+        public WebPageAbstract(IWebDriver driver)
         {
             testDriver = driver;
         }
 
-        public WebPageAbtract(TestBrowser testBrowser)
+        public WebPageAbstract(TestBrowser testBrowser)
         {
             OpenBrowser(testBrowser);
         }

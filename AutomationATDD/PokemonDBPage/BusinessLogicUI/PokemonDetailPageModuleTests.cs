@@ -7,7 +7,7 @@ namespace AutomationATDD
 {
     public class PokemonDetailPageModuleTests
     {
-        public WebPageAbtract _wp;
+        public WebPageAbstract _wp;
         public bool isWebTest = false;
 
         [TearDown]
@@ -25,7 +25,7 @@ namespace AutomationATDD
         public void MakeSurePokemonDetailPageHeaderDisplaysTheRightdata(string name)
         {
             isWebTest = true;
-            _wp = new WebPageAbtract (AutomationOptions.TestBrowser.CHROME);
+            _wp = new WebPageAbstract (AutomationOptions.TestBrowser.CHROME);
             PokemonDBHomeModule dbHome = new PokemonDBHomeModule(_wp);
             dbHome.GoToThisPage();
             dbHome.CloseModalIfPresent();

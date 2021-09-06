@@ -17,9 +17,9 @@ namespace PageObjects
         public ElementAbstract SpritesLink = new ElementAbstract("a[href='#dex-sprites']", AutomationOptions.SearchMethod.CSS);
         public ElementAbstract LocationsLink = new ElementAbstract("a[href='#dex-locations']", AutomationOptions.SearchMethod.CSS);
         public ElementAbstract LanguageLink = new ElementAbstract("a[href='#dex-lang']", AutomationOptions.SearchMethod.CSS);
-        public WebPageAbtract _webPage;
+        public WebPageAbstract _webPage;
 
-        public PokemonDetailPageNavigationBar(WebPageAbtract webPage)
+        public PokemonDetailPageNavigationBar(WebPageAbstract webPage)
         {
                 _webPage = webPage;
         }

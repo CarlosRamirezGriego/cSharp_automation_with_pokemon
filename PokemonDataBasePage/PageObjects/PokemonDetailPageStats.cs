@@ -16,9 +16,9 @@ namespace PageObjects
         public ElementAbstract TabBasicContainer_StatsContainer_BaseStatSpAttack = new ElementAbstract("table.vitals-table tbody>tr:nth-child(4) td:nth-of-type(1)", AutomationOptions.SearchMethod.CSS);
         public ElementAbstract TabBasicContainer_StatsContainer_BaseStatSpDefense = new ElementAbstract("table.vitals-table tbody>tr:nth-child(5) td:nth-of-type(1)", AutomationOptions.SearchMethod.CSS);
         public ElementAbstract TabBasicContainer_StatsContainer_BaseStatSpeed = new ElementAbstract("table.vitals-table tbody>tr:nth-child(6) td:nth-of-type(1)", AutomationOptions.SearchMethod.CSS);
-        public WebPageAbtract _webPage;
+        public WebPageAbstract _webPage;
 
-        public PokemonDetailPageStats(WebPageAbtract webPage)
+        public PokemonDetailPageStats(WebPageAbstract webPage)
         {
                 _webPage = webPage;
         }
