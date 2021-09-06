@@ -165,7 +165,7 @@ namespace PageObjects
 
         #region Page Objects Search
 
-        public ElementAbstract SearchElementWithThisText(string text)
+        public ElementAbstract SearchAllElementsWithThisText(string text)
         {
             ElementAbstract match = new ElementAbstract();
             IReadOnlyList<IWebElement> listMatches = testDriver.FindElements(By.XPath("//*[text()='"+text+"']"));
