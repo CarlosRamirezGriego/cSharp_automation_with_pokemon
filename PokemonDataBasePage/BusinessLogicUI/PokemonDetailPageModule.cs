@@ -9,9 +9,9 @@ namespace UIModules
     public class PokemonDetailPageModule
     {
 
-        public WebPageInterface _wp;
+        public WebPageAbstract _wp;
 
-        public PokemonDetailPageModule(WebPageInterface wp)
+        public PokemonDetailPageModule(WebPageAbstract wp)
         {
             _wp = wp;
         }
@@ -68,7 +68,7 @@ namespace UIModules
         public string FindPokemonBaseHP()
         {
             PokemonDetailPageStats statsObject = new PokemonDetailPageStats(_wp);
-            ElementInterface hpElement = statsObject.FindHPBaseStatusData();
+            ElementAbstract hpElement = statsObject.FindHPBaseStatusData();
             string hp = null;
             if (hpElement.amountElements == 1)
             {
@@ -81,7 +81,7 @@ namespace UIModules
         public string FindPokemonBaseAttack()
         {
             PokemonDetailPageStats statsObject = new PokemonDetailPageStats(_wp);
-            ElementInterface attElement = statsObject.FindAttackBaseStatusData();
+            ElementAbstract attElement = statsObject.FindAttackBaseStatusData();
             string att = null;
             if (attElement.amountElements == 1)
             {
@@ -94,7 +94,7 @@ namespace UIModules
         public string FindPokemonBaseDefense()
         {
             PokemonDetailPageStats statsObject = new PokemonDetailPageStats(_wp);
-            ElementInterface defElement = statsObject.FindDefenseBaseStatusData();
+            ElementAbstract defElement = statsObject.FindDefenseBaseStatusData();
             string def = null;
             if (defElement.amountElements == 1)
             {
@@ -107,7 +107,7 @@ namespace UIModules
         public string FindPokemonBaseSpAttack()
         {
             PokemonDetailPageStats statsObject = new PokemonDetailPageStats(_wp);
-            ElementInterface spaElement = statsObject.FindSpAttackBaseStatusData();
+            ElementAbstract spaElement = statsObject.FindSpAttackBaseStatusData();
             string spa = null;
             if (spaElement.amountElements == 1)
             {
@@ -120,7 +120,7 @@ namespace UIModules
         public string FindPokemonBaseSpDefense()
         {
             PokemonDetailPageStats statsObject = new PokemonDetailPageStats(_wp);
-            ElementInterface spdElement = statsObject.FindSpDefenseBaseStatusData();
+            ElementAbstract spdElement = statsObject.FindSpDefenseBaseStatusData();
             string spd = null;
             if (spdElement.amountElements == 1)
             {
@@ -133,7 +133,7 @@ namespace UIModules
         public string FindPokemonBaseSpeed()
         {
             PokemonDetailPageStats statsObject = new PokemonDetailPageStats(_wp);
-            ElementInterface spedElement = statsObject.FindSpeedBaseStatusData();
+            ElementAbstract spedElement = statsObject.FindSpeedBaseStatusData();
             string spe = null;
             if (spedElement.amountElements == 1)
             {

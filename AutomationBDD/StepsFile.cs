@@ -19,7 +19,7 @@ namespace AutomationBDD
         public Dictionary<string, EVManagement> evObjects = new Dictionary<string, EVManagement>();
         public bool _isBrowserOpen = false;
         public bool _isWebTest = false;
-        public WebPageInterface _wp;
+        public WebPageAbstract _wp;
         public PokemonEndpoint _pe;
         public string _targetPokemon;
         public Dictionary<string, IRestResponse> responses = new Dictionary<string, IRestResponse>();
@@ -80,7 +80,7 @@ namespace AutomationBDD
         {
             if (!_isBrowserOpen)
             {
-                _wp = new WebPageInterface(AutomationOptions.TestBrowser.CHROME);
+                _wp = new WebPageAbstract(AutomationOptions.TestBrowser.CHROME);
                 _wp.MaximizeWindow();
                 _isBrowserOpen = true;
                 _isWebTest = true;

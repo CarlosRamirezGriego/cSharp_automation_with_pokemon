@@ -12,32 +12,32 @@ using static AutomationClasses.AutomationOptions;
 
 namespace PageObjects
 {
-    public class WebPageInterface
+    public class WebPageAbstract
     {
         public IWebDriver testDriver { get; set; }
         public int explicitWait { get; private set; } = 10;
         public const int defaultExplicit = 10;
         public int milisecondsInterval { get; private set; } = 10;
-        public ElementInterface testElement = new ElementInterface();
+        public ElementAbstract testElement = new ElementAbstract();
         public bool isSeleniumGrid { get; private set; } = false;
         public bool HighLightElements = false;
         public TestBrowser testBrowser;
 
-        public WebPageInterface()
+        public WebPageAbstract()
         {
         }
 
-        public WebPageInterface(TestBrowser testBrowser, string url)
+        public WebPageAbstract(TestBrowser testBrowser, string url)
         {
             OpenBrowser(testBrowser, url);
         }
 
-        public WebPageInterface(IWebDriver driver)
+        public WebPageAbstract(IWebDriver driver)
         {
             testDriver = driver;
         }
 
-        public WebPageInterface(TestBrowser testBrowser)
+        public WebPageAbstract(TestBrowser testBrowser)
         {
             OpenBrowser(testBrowser);
         }
@@ -144,7 +144,7 @@ namespace PageObjects
         }
 
 
-        public void HighLightAllTheElementsThatMatch(ElementInterface we)
+        public void HighLightAllTheElementsThatMatch(ElementAbstract we)
         {
             List<IWebElement> sourceElements = new List<IWebElement>();
             IJavaScriptExecutor js = (IJavaScriptExecutor)testDriver;
@@ -165,9 +165,9 @@ namespace PageObjects
 
         #region Page Objects Search
 
-        public ElementInterface SearchElementWithThisText(string text)
+        public ElementAbstract SearchElementWithThisText(string text)
         {
-            ElementInterface match = new ElementInterface();
+            ElementAbstract match = new ElementAbstract();
             IReadOnlyList<IWebElement> listMatches = testDriver.FindElements(By.XPath("//*[text()='"+text+"']"));
             foreach (IWebElement iwe in listMatches)
             {
@@ -180,7 +180,7 @@ namespace PageObjects
             return match;
         }
 
-        public ElementInterface SearchForTheseSelectorsData(ElementInterface we)
+        public ElementAbstract SearchForTheseSelectorsData(ElementAbstract we)
         {
             if (we.expectedMatches == ExpectedMatchingElements.ONE)
             {
@@ -196,7 +196,7 @@ namespace PageObjects
             }
         }
 
-        public bool IsThisElementPresent(ElementInterface we)
+        public bool IsThisElementPresent(ElementAbstract we)
         {
             we.ResetElement();
             if (we.expectedMatches == ExpectedMatchingElements.ONE)
@@ -240,7 +240,7 @@ namespace PageObjects
         }
 
         //This looks for a Child Element search results in side a Parent Element, by default in the Element 1 of the Parent
-        public ElementInterface SearchForTheseSelectorsData(ElementInterface parent, ElementInterface child)
+        public ElementAbstract SearchForTheseSelectorsData(ElementAbstract parent, ElementAbstract child)
         {
             if (!parent.hasBeenSearched)
             {
@@ -269,7 +269,7 @@ namespace PageObjects
         }
 
         //This looks for a Child Element search results in side a Parent Element, in the Element that the user specifies from the Parent
-        public ElementInterface SearchForTheseSelectorsData(ElementInterface parent, ElementInterface child, int positionIWE)
+        public ElementAbstract SearchForTheseSelectorsData(ElementAbstract parent, ElementAbstract child, int positionIWE)
         {
             if (!parent.hasBeenSearched)
             {
@@ -310,7 +310,7 @@ namespace PageObjects
         #region Page Object Actions
 
         #region Click Elements
-        public void ClickThisElement(ElementInterface we)
+        public void ClickThisElement(ElementAbstract we)
         {
             if (we.expectedMatches == ExpectedMatchingElements.NONE || we.expectedMatches == ExpectedMatchingElements.MANY)
             {
@@ -345,7 +345,7 @@ namespace PageObjects
             }
         }
 
-        public void ClickElementFromListByIndex(ElementInterface we, int index)
+        public void ClickElementFromListByIndex(ElementAbstract we, int index)
         {
             if (we.hasBeenSearched)
             {
@@ -398,7 +398,7 @@ namespace PageObjects
 
         #region EnterText in Element
 
-        public void EnterTextInThisElement(ElementInterface we, string text)
+        public void EnterTextInThisElement(ElementAbstract we, string text)
         {
             if (we.expectedMatches == ExpectedMatchingElements.NONE || we.expectedMatches == ExpectedMatchingElements.MANY)
             {
@@ -441,7 +441,7 @@ namespace PageObjects
             }
         }
 
-        public void PressBackSpaceInThisElement(ElementInterface we, int times)
+        public void PressBackSpaceInThisElement(ElementAbstract we, int times)
         {
             if (we.expectedMatches == ExpectedMatchingElements.NONE || we.expectedMatches == ExpectedMatchingElements.MANY)
             {
@@ -488,7 +488,7 @@ namespace PageObjects
             }
         }
 
-        public void PressEnterInThisElement(ElementInterface we)
+        public void PressEnterInThisElement(ElementAbstract we)
         {
             if (we.expectedMatches == ExpectedMatchingElements.NONE || we.expectedMatches == ExpectedMatchingElements.MANY)
             {
@@ -542,7 +542,7 @@ namespace PageObjects
 
         #region Get Text From Element
 
-        public string GetThisElementText(ElementInterface we)
+        public string GetThisElementText(ElementAbstract we)
         {
             if (we.expectedMatches == ExpectedMatchingElements.NONE || we.expectedMatches == ExpectedMatchingElements.MANY)
             {
@@ -585,7 +585,7 @@ namespace PageObjects
         }
 
 
-        public ElementInterface ValidateAnElementHasThisText(ElementInterface we, string text)
+        public ElementAbstract ValidateAnElementHasThisText(ElementAbstract we, string text)
         {
             if (we.expectedMatches == ExpectedMatchingElements.NONE || we.expectedMatches == ExpectedMatchingElements.MANY)
             {
@@ -625,7 +625,7 @@ namespace PageObjects
         #endregion
 
         #region Scroll To Elements
-        public void MoveIntoViewToThisElement(ElementInterface we)
+        public void MoveIntoViewToThisElement(ElementAbstract we)
         {
             if (we.expectedMatches == ExpectedMatchingElements.NONE || we.expectedMatches == ExpectedMatchingElements.MANY)
             {
@@ -644,7 +644,7 @@ namespace PageObjects
 
         }
 
-        public void ScrollToThisElement(ElementInterface we)
+        public void ScrollToThisElement(ElementAbstract we)
         {
             if (we.expectedMatches == ExpectedMatchingElements.NONE || we.expectedMatches == ExpectedMatchingElements.MANY)
             {
@@ -669,7 +669,7 @@ namespace PageObjects
         #endregion
 
         #region InvisibilityCheck
-        public ElementInterface ThisElementShouldNotBeVisible(ElementInterface we)
+        public ElementAbstract ThisElementShouldNotBeVisible(ElementAbstract we)
         {
             if (we.expectedMatches == ExpectedMatchingElements.NONE || we.expectedMatches == ExpectedMatchingElements.MANY)
             {
@@ -709,7 +709,7 @@ namespace PageObjects
         #endregion
 
         #region VisibilityCheck
-        public ElementInterface ThisElementShouldBeVisible(ElementInterface we)
+        public ElementAbstract ThisElementShouldBeVisible(ElementAbstract we)
         {
             if (we.expectedMatches == ExpectedMatchingElements.NONE || we.expectedMatches == ExpectedMatchingElements.MANY)
             {
@@ -750,7 +750,7 @@ namespace PageObjects
 
         #region Attribute Check
 
-        public ElementInterface GetThisElementAttributeNamed(ElementInterface we, string attName)
+        public ElementAbstract GetThisElementAttributeNamed(ElementAbstract we, string attName)
         {
             if (we.expectedMatches == ExpectedMatchingElements.NONE || we.expectedMatches == ExpectedMatchingElements.MANY)
             {
@@ -787,7 +787,7 @@ namespace PageObjects
             }
         }
 
-        public ElementInterface TheFollowingAttributeShouldHaveThisValue(ElementInterface we, string attName, string value)
+        public ElementAbstract TheFollowingAttributeShouldHaveThisValue(ElementAbstract we, string attName, string value)
         {
             if (we.expectedMatches == ExpectedMatchingElements.NONE || we.expectedMatches == ExpectedMatchingElements.MANY)
             {
@@ -829,7 +829,7 @@ namespace PageObjects
 
 
         #region Enabled Check
-        public ElementInterface ThisElementShouldBeEnabled(ElementInterface we)
+        public ElementAbstract ThisElementShouldBeEnabled(ElementAbstract we)
         {
             if (we.expectedMatches == ExpectedMatchingElements.NONE || we.expectedMatches == ExpectedMatchingElements.MANY)
             {
@@ -876,7 +876,7 @@ namespace PageObjects
 
         #region SearchExecutors
 
-        private ElementInterface ThisElementShouldHaveOneMatch(ElementInterface we)
+        private ElementAbstract ThisElementShouldHaveOneMatch(ElementAbstract we)
         {
             we.ResetElement();
             if (we.expectedMatches == ExpectedMatchingElements.ONE)
@@ -918,7 +918,7 @@ namespace PageObjects
             }
         }
 
-        private ElementInterface ThisElementShouldExistRegardlessVisibility(ElementInterface we)
+        private ElementAbstract ThisElementShouldExistRegardlessVisibility(ElementAbstract we)
         {
             we.ResetElement();
             if (we.expectedMatches == ExpectedMatchingElements.ONE)
@@ -948,7 +948,7 @@ namespace PageObjects
             }
         }
 
-        private ElementInterface ThisElementShouldHaveNoMatch(ElementInterface we)
+        private ElementAbstract ThisElementShouldHaveNoMatch(ElementAbstract we)
         {
             we.ResetElement();
             if (we.expectedMatches == ExpectedMatchingElements.NONE)
@@ -976,7 +976,7 @@ namespace PageObjects
             }
         }
 
-        private ElementInterface ThisElementShouldHaveMultipleMatches(ElementInterface we)
+        private ElementAbstract ThisElementShouldHaveMultipleMatches(ElementAbstract we)
         {
             we.ResetElement();
             if (we.expectedMatches == ExpectedMatchingElements.MANY)
@@ -1012,7 +1012,7 @@ namespace PageObjects
             }
         }
 
-        private ElementInterface ThisElementShouldHaveOneMatch(ElementInterface we, IWebElement iwe)
+        private ElementAbstract ThisElementShouldHaveOneMatch(ElementAbstract we, IWebElement iwe)
         {
             we.ResetElement();
             if (we.expectedMatches == ExpectedMatchingElements.ONE)
@@ -1053,7 +1053,7 @@ namespace PageObjects
             }
         }
 
-        private ElementInterface ThisElementShouldExistRegardlessVisibility(ElementInterface we, IWebElement iwe)
+        private ElementAbstract ThisElementShouldExistRegardlessVisibility(ElementAbstract we, IWebElement iwe)
         {
             we.ResetElement();
             if (we.expectedMatches == ExpectedMatchingElements.ONE)
@@ -1083,7 +1083,7 @@ namespace PageObjects
             }
         }
 
-        private ElementInterface ThisElementShouldHaveNoMatch(ElementInterface we, IWebElement iwe)
+        private ElementAbstract ThisElementShouldHaveNoMatch(ElementAbstract we, IWebElement iwe)
         {
             we.ResetElement();
             if (we.expectedMatches == ExpectedMatchingElements.NONE)
@@ -1111,7 +1111,7 @@ namespace PageObjects
             }
         }
 
-        private ElementInterface ThisElementShouldHaveMultipleMatches(ElementInterface we, IWebElement iwe)
+        private ElementAbstract ThisElementShouldHaveMultipleMatches(ElementAbstract we, IWebElement iwe)
         {
             we.ResetElement();
             if (we.expectedMatches == ExpectedMatchingElements.MANY)
