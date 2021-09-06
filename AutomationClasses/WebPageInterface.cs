@@ -165,6 +165,21 @@ namespace PageObjects
 
         #region Page Objects Search
 
+        public ElementInterface SearchElementWithThisText(string text)
+        {
+            ElementInterface match = new ElementInterface();
+            IReadOnlyList<IWebElement> listMatches = testDriver.FindElements(By.XPath("//*[text()='"+text+"']"));
+            foreach (IWebElement iwe in listMatches)
+            {
+                if (iwe.Displayed)
+                {
+                    match.allMatchingResults.Add(iwe);
+                }
+            }
+            match.CountMatchingElements();
+            return match;
+        }
+
         public ElementInterface SearchForTheseSelectorsData(ElementInterface we)
         {
             if (we.expectedMatches == ExpectedMatchingElements.ONE)
