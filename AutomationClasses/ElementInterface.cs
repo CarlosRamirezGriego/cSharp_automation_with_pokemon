@@ -143,6 +143,15 @@ namespace PageObjects
             return text;
         }
 
+        public void ClickTheElementInThisPosition(int position)
+        {
+            if (amountElements >= position && amountElements > 0 && position >= 1)
+            {
+                IWebElement result = ReturnTheIWebElementInPosition(position);
+                result.Click();
+            }
+        }
+
         public List<string> GetTextFromAllMatchingElements()
         {
             List<string> text = new List<string>();
