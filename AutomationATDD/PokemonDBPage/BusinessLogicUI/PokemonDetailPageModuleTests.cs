@@ -22,7 +22,7 @@ namespace AutomationATDD
         [Test]
         [TestCase("Pikachu")]
         [TestCase("Mewtwo")]
-        public void MakeSurePokemonDetailPageHeaderDisplaysTheRightdata(string name)
+        public void MakeSurePokemonDetailPageHeaderDisplaysTheRightData(string name)
         {
             isWebTest = true;
             _wp = new WebPageAbstract (AutomationOptions.TestBrowser.CHROME);

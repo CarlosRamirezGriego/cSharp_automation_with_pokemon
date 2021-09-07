@@ -6,7 +6,7 @@ namespace StatsManagement
     {
         public static IPokemonType RetrieveType(string type)
         {
-            dynamic typeVar = null;
+            IPokemonType typeVar = new NormalType();
             switch (type.ToLower())
             {
                 case "bug":

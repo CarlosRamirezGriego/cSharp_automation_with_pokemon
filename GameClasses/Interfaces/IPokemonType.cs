@@ -5,16 +5,15 @@ namespace GameInterfaces
 {
     public interface IPokemonType
     {
-        public string GetTypeName();
-        public int GetTypeSlot();
-        public void SetTypeSlot(int num);
-        public List<string> OffensiveWeakTo();
-        public List<string> OffensiveStrongAgainst();
-        public List<string> OffensiveNoDamageTo();
-
-        public List<string> DefenseWeakTo();
-        public List<string> DefenseStrongAgainst();
-        public List<string> DefenseImmuneTo();
+        string GetTypeName();
+        int GetTypeSlot();
+        void SetTypeSlot(int num);
+        List<string> OffensiveWeakTo();
+        List<string> OffensiveStrongAgainst();
+        List<string> OffensiveNoDamageTo();
+        List<string> DefenseWeakTo();
+        List<string> DefenseStrongAgainst();
+        List<string> DefenseImmuneTo();
 
     }
 }

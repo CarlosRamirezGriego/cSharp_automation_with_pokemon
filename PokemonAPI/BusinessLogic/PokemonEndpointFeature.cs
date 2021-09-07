@@ -1,6 +1,7 @@
 ﻿using AutomationClasses;
 using GameInterfaces;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PokemonAPI;
 using RestSharp;
 using StatsManagement;
@@ -31,52 +32,65 @@ namespace PokemonAPIFeature
 
         public int GetHPFromData(IRestResponse response)
         {
-            dynamic data = JsonConvert.DeserializeObject(response.Content);
-            int hp = data["stats"][0]["base_stat"];
-            return hp;
+            JObject statsData = JObject.Parse(response.Content);
+            JArray statsArray = statsData.GetValue("stats").Value<JArray>();
+            JObject baseStatData = JObject.Parse((string)statsArray[0]);
+            int stat = baseStatData.GetValue("base_stat").Value<int>();
+            return stat;
         }
 
 
         public int GetAttackFromData(IRestResponse response)
         {
-            dynamic data = JsonConvert.DeserializeObject(response.Content);
-            int att = data["stats"][1]["base_stat"];
-            return att;
+            JObject statsData = JObject.Parse(response.Content);
+            JArray statsArray = statsData.GetValue("stats").Value<JArray>();
+            JObject baseStatData = JObject.Parse((string)statsArray[1]);
+            int stat = baseStatData.GetValue("base_stat").Value<int>();
+            return stat;
         }
 
         public int GetDefenseFromData(IRestResponse response)
         {
-            dynamic data = JsonConvert.DeserializeObject(response.Content);
-            int def = data["stats"][2]["base_stat"];
-            return def;
+            JObject statsData = JObject.Parse(response.Content);
+            JArray statsArray = statsData.GetValue("stats").Value<JArray>();
+            JObject baseStatData = JObject.Parse((string)statsArray[2]);
+            int stat = baseStatData.GetValue("base_stat").Value<int>();
+            return stat;
         }
 
         public int GetSpecialAttackFromData(IRestResponse response)
         {
-            dynamic data = JsonConvert.DeserializeObject(response.Content);
-            int spAtt = data["stats"][3]["base_stat"];
-            return spAtt;
+            JObject statsData = JObject.Parse(response.Content);
+            JArray statsArray = statsData.GetValue("stats").Value<JArray>();
+            JObject baseStatData = JObject.Parse((string)statsArray[3]);
+            int stat = baseStatData.GetValue("base_stat").Value<int>();
+            return stat;
         }
 
         public int GetSpecialDefenseFromData(IRestResponse response)
         {
-            dynamic data = JsonConvert.DeserializeObject(response.Content);
-            int spDef = data["stats"][4]["base_stat"];
-            return spDef;
+            JObject statsData = JObject.Parse(response.Content);
+            JArray statsArray = statsData.GetValue("stats").Value<JArray>();
+            JObject baseStatData = JObject.Parse((string)statsArray[4]);
+            int stat = baseStatData.GetValue("base_stat").Value<int>();
+            return stat;
         }
 
         public int GetSpeedFromData(IRestResponse response)
         {
-            dynamic data = JsonConvert.DeserializeObject(response.Content);
-            int speed = data["stats"][5]["base_stat"];
-            return speed;
+            JObject statsData = JObject.Parse(response.Content);
+            JArray statsArray = statsData.GetValue("stats").Value<JArray>();
+            JObject baseStatData = JObject.Parse((string)statsArray[5]);
+            int stat = baseStatData.GetValue("base_stat").Value<int>();
+            return stat;
         }
 
         public bool ThisPokemonHasMultipleTypes(IRestResponse response)
         {
             bool hasTwo = false;
-            dynamic data = JsonConvert.DeserializeObject(response.Content);
-            int count = data["types"].Count;
+            JObject data = JObject.Parse(response.Content);
+            JArray types = data.GetValue("types").Value<JArray>();
+            int count = types.Count;
             if (count == 2)
             {
                 hasTwo = true;
@@ -87,14 +101,19 @@ namespace PokemonAPIFeature
         public List<IPokemonType> GetAllPokemonTypeData(IRestResponse response)
         {
             List<IPokemonType> listTypes = new List<IPokemonType>();
-            dynamic data = JsonConvert.DeserializeObject(response.Content);
-            string type1Name = data["types"][0]["type"]["name"];
+            JObject data = JObject.Parse(response.Content);
+            JArray typesArray = data.GetValue("types").Value<JArray>();
+            JObject firstType = JObject.Parse((string)typesArray[0]);
+            JObject typeData = firstType.GetValue("type").Value<JObject>();
+            string type1Name = typeData.GetValue("name").Value<string>();
             IPokemonType type1 = PokemonTypeManagement.RetrieveType(type1Name);
             listTypes.Add(type1);
             bool hasTwoTypes = ThisPokemonHasMultipleTypes(response);
             if (hasTwoTypes)
             {
-                string type2Name = data["types"][1]["type"]["name"];
+                JObject secondType = JObject.Parse((string)typesArray[1]);
+                JObject typeData2 = secondType.GetValue("type").Value<JObject>();
+                string type2Name = typeData2.GetValue("name").Value<string>();
                 IPokemonType type2 = PokemonTypeManagement.RetrieveType(type2Name);
                 listTypes.Add(type2);
             }
