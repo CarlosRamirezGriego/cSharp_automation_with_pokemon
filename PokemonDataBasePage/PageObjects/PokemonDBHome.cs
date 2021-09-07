@@ -18,31 +18,32 @@ namespace PageObjects
                 _webPage = webPage;
         }
 
+        public void GoToThisPage()
+        {
+            _webPage.LoadWebPage("https://pokemondb.net/");
+        }
+
 
         public void ThePrivacyModalIsPresent()
         {
-            WebPageAbstract wp = new WebPageAbstract(_webPage.testDriver);
-            wp.SearchForTheseSelectorsData(PrivacyModal);
+            _webPage.SearchForTheseSelectorsData(PrivacyModal);
         }
 
         public void WaitForTheModalToNotBeDisplayedAnymore()
         {
-            WebPageAbstract wp = new WebPageAbstract(_webPage.testDriver);
-            wp.ThisElementShouldNotBeVisible(PrivacyModal);
+            _webPage.ThisElementShouldNotBeVisible(PrivacyModal);
         }
 
 
         public void ClickOKModalButton()
         {
-            WebPageAbstract wp = new WebPageAbstract(_webPage.testDriver);
-            wp.ClickThisElement(ModalOkButton);
+            _webPage.ClickThisElement(ModalOkButton);
         }
 
 
         public void ClickNationalDexLink()
         {
-            WebPageAbstract wp = new WebPageAbstract(_webPage.testDriver);
-            wp.ClickThisElement(NationalDexQuickLink);
+            _webPage.ClickThisElement(NationalDexQuickLink);
         }
 
 
