@@ -104,8 +104,12 @@ namespace PageObjects
             if (!(i <= 0 || i > amountElements))
             {
                 TestWE = allMatchingResults.ElementAt(i - 1);
+                return TestWE;
             }
-            return TestWE;
+            else
+            {
+                throw new InvalidOperationException("The element to Return was in position #" + i + " but there are " + amountElements + " matching elements");
+            }
         }
 
 
@@ -139,8 +143,12 @@ namespace PageObjects
             {
                 IWebElement result = ReturnTheIWebElementInPosition(position);
                 text = result.Text;
+                return text;
             }
-            return text;
+            else
+            {
+                throw new InvalidOperationException("The element to Return its text was in position #" + position + " but there are " + amountElements + " matching elements");
+            }
         }
 
         public void ClickTheElementInThisPosition(int position)
@@ -149,6 +157,10 @@ namespace PageObjects
             {
                 IWebElement result = ReturnTheIWebElementInPosition(position);
                 result.Click();
+            }
+            else 
+            {
+                throw new InvalidOperationException("The element to Click was in position #"+position+" but there are "+amountElements+" matching elements");
             }
         }
 
